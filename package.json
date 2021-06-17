@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/m1yon/mal-scrapper.git"
+    "url": "git+https://github.com/Pourover-Labs/mal-scraper.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/m1yon/mal-scrapper/issues"
+    "url": "https://github.com/Pourover-Labs/mal-scraper/issues"
   },
-  "homepage": "https://github.com/m1yon/mal-scrapper#readme",
+  "homepage": "https://github.com/Pourover-Labs/mal-scraper#readme",
   "dependencies": {
     "ayakashi": "^1.0.0-beta7.2",
     "esbuild": "^0.12.9",
