@@ -1,5 +1,5 @@
 {
-  "name": "mal-scrapper",
+  "name": "@pourover-labs/mal-scraper",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
