@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ayakashi run --simple src/index.js"
+    "start": "tsc && esbuild src/index.ts --bundle --platform=node --target=node10.4 --outdir=build && ayakashi run --simple build/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,9 +17,12 @@
   },
   "homepage": "https://github.com/m1yon/mal-scrapper#readme",
   "dependencies": {
-    "ayakashi": "^1.0.0-beta7.2"
+    "ayakashi": "^1.0.0-beta7.2",
+    "esbuild": "^0.12.9",
+    "typescript": "^4.3.3"
   },
   "devDependencies": {
+    "@ayakashi/types": "^1.0.0-beta7.1",
     "@types/node": "^15.12.2"
   }
 }
