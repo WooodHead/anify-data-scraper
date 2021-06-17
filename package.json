@@ -1,0 +1,25 @@
+{
+  "name": "mal-scrapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ayakashi run --simple src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m1yon/mal-scrapper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m1yon/mal-scrapper/issues"
+  },
+  "homepage": "https://github.com/m1yon/mal-scrapper#readme",
+  "dependencies": {
+    "ayakashi": "^1.0.0-beta7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.2"
+  }
+}
