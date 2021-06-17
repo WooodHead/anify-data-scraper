@@ -19,10 +19,14 @@
   "dependencies": {
     "ayakashi": "^1.0.0-beta7.2",
     "esbuild": "^0.12.9",
-    "typescript": "^4.3.3"
+    "fast-xml-parser": "^3.19.0",
+    "typescript": "^4.3.3",
+    "xml-js": "^1.6.11",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@ayakashi/types": "^1.0.0-beta7.1",
-    "@types/node": "^15.12.2"
+    "@types/node": "^15.12.2",
+    "@types/xml2js": "^0.4.8"
   }
 }
