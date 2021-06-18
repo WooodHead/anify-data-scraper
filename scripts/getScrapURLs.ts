@@ -12,6 +12,8 @@ const getScrapURLs = async (
   // extract the URLs
   const urls = siteMap.urlset.url.map((entry) => entry.loc[0]);
 
+  console.log("urls.length", urls.length);
+
   return urls;
 };
 

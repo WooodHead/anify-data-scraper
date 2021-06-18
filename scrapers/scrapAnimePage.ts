@@ -4,6 +4,9 @@ const scrapAnimePage = async (
   ayakashi: import("@ayakashi/types").IAyakashiInstance,
   url: string
 ) => {
+  // wait x ms between runs to prevent throttling
+  await ayakashi.wait(5000);
+
   await ayakashi.goTo(url);
 
   // get anime title

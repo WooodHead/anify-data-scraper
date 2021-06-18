@@ -1,5 +1,7 @@
 const config: import("@ayakashi/types").Config = {
-  config: {},
+  config: {
+    workers: 1,
+  },
   waterfall: [
     {
       type: "script",
