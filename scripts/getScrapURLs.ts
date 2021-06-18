@@ -10,10 +10,7 @@ const getScrapURLs = async (
   const siteMap: SiteMap = await xml2js.parseStringPromise(xml.body);
 
   // extract the URLs
-  const urls = siteMap.urlset.url.map((entry, index) => ({
-    url: entry.loc[0],
-    index,
-  }));
+  const urls = siteMap.urlset.url.map((entry) => entry.loc[0]);
 
   return urls;
 };

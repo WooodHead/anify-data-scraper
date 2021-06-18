@@ -1,6 +1,8 @@
+import { createHash } from "crypto";
+
 const scrapAnimePage = async (
   ayakashi: import("@ayakashi/types").IAyakashiInstance,
-  { url, index }: { url: string; index: number }
+  url: string
 ) => {
   await ayakashi.goTo(url);
 
@@ -11,7 +13,11 @@ const scrapAnimePage = async (
     .selectFirstChild("title");
   const title = (await ayakashi.extractFirst("title")) || "";
 
-  return { [index]: { title } };
+  // generate a unique ID using the hash of the title
+  const hash = createHash("sha1");
+  hash.update(title);
+
+  return { [hash.digest("hex")]: { title } };
 };
 
 module.exports = scrapAnimePage;
