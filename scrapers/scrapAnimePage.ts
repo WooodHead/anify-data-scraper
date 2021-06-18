@@ -17,10 +17,10 @@ const scrapAnimePage = async (
   const title = (await ayakashi.extractFirst("title")) || "";
 
   // generate a unique ID using the hash of the title
-  const id = createHash("sha1");
-  id.update(title);
+  const hash = createHash("sha1");
+  hash.update(title);
 
-  return { id, title };
+  return { id: hash.digest("hex"), title };
 };
 
 module.exports = scrapAnimePage;
