@@ -2,10 +2,16 @@ import { createHash } from "crypto";
 
 const scrapAnimePage = async (
   ayakashi: import("@ayakashi/types").IAyakashiInstance,
-  url: string
+  input?: string,
+  params?: { url?: string; disableThrottling?: boolean }
 ) => {
-  // wait x ms between runs to prevent throttling
-  await ayakashi.wait(5000);
+  // use the params.url override if exists, otherwise use the input url
+  const url = params?.url || input;
+
+  if (!url) throw new Error("No URL provided");
+
+  // wait x ms between runs to prevent throttling (if enabled)
+  if (!params?.disableThrottling) await ayakashi.wait(5000);
 
   await ayakashi.goTo(url);
 
