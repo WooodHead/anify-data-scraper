@@ -47,7 +47,7 @@ const scrapAnimePage = async (
   // get status
   ayakashi.select("status").where({
     innerText: {
-      like: /^Status: [a-zA-Z ]+$/,
+      like: /^Status: [\\s\\S]+$/,
     },
   });
   const status = determineStatus(
@@ -72,11 +72,29 @@ const scrapAnimePage = async (
   const mainImage =
     (await ayakashi.extractFirst("mainImage", "src")) || undefined;
 
+  // get rating
+  ayakashi.select("rating").where({
+    innerText: {
+      // like: "Rating",
+      like: /^Rating: [\\s\\S]+$/,
+    },
+  });
+  const rating =
+    (await ayakashi.extractFirst("rating"))?.replace("Rating: ", "") || "";
+
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
   hash.update(title || "");
 
-  return { id: hash.digest("hex"), title, type, episodes, status, mainImage };
+  return {
+    id: hash.digest("hex"),
+    title,
+    type,
+    episodes,
+    status,
+    mainImage,
+    rating,
+  };
 };
 
 module.exports = scrapAnimePage;

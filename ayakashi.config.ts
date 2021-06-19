@@ -41,4 +41,4 @@ const singleRun: import("@ayakashi/types").Config = {
 };
 
 // set the current config here
-module.exports = fullRun;
+module.exports = singleRun;
