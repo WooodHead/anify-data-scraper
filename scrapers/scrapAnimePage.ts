@@ -22,7 +22,7 @@ const scrapAnimePage = async (
     .where({ class: { like: "title-name" } })
     .selectFirstChild("title");
 
-  const title = (await ayakashi.extractFirst("title")) || "";
+  const title = (await ayakashi.extractFirst("title")) || null;
 
   // get anime type
   ayakashi.select("type").where({
@@ -31,7 +31,7 @@ const scrapAnimePage = async (
     },
   });
   const type =
-    (await ayakashi.extractFirst("type"))?.replace("Type: ", "") || "";
+    (await ayakashi.extractFirst("type"))?.replace("Type: ", "") || null;
 
   // get number of episodes
   ayakashi.select("episodes").where({
@@ -40,7 +40,8 @@ const scrapAnimePage = async (
     },
   });
   const episodes =
-    (await ayakashi.extractFirst("episodes"))?.replace("Episodes: ", "") || "";
+    (await ayakashi.extractFirst("episodes"))?.replace("Episodes: ", "") ||
+    null;
 
   // get status
   ayakashi.select("status").where({
@@ -71,7 +72,7 @@ const scrapAnimePage = async (
 
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
-  hash.update(title);
+  hash.update(title || "");
 
   return { id: hash.digest("hex"), title, type, episodes, status, mainImage };
 };
