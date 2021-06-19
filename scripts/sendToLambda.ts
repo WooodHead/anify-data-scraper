@@ -24,7 +24,7 @@ const sendToLambda = async (input: any) => {
     Payload: new TextEncoder().encode(JSON.stringify(input)),
   });
 
-  console.log(`Successfully sent ${input.id} to Lambda`);
+  console.log(`🟢 [SUCCESS] - Sent ${input.id} to Lambda`);
 
   return response;
 };

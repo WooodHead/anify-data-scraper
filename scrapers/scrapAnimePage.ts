@@ -4,19 +4,25 @@ import determineType from "../utils/determineType";
 
 const scrapAnimePage = async (
   ayakashi: import("@ayakashi/types").IAyakashiInstance,
-  input?: string,
+  input?: { url: string; index: number; total: number },
   params?: { url?: string; disableThrottling?: boolean }
 ) => {
   // use the params.url override if exists, otherwise use the input url
-  const url = params?.url || input;
+  const url = params?.url || input?.url;
 
   if (!url) throw new Error("No URL provided");
 
   // wait x ms between runs to prevent throttling (if enabled)
-  if (!params?.disableThrottling)
+  if (!params?.disableThrottling) {
+    console.log(`🟡 [IN PROGRESS] - Waiting to prevent throttle...`);
     await ayakashi.wait(10000 + Math.floor(Math.random() * 5000));
+  }
 
-  console.log(`Scraping ${url}`);
+  // give status updates for full runs
+  if (!params?.url && input)
+    console.log(
+      `🟡 [IN PROGRESS] - (${input.index + 1}/${input.total}) - Scraping ${url}`
+    );
 
   await ayakashi.goTo(url);
 
