@@ -135,11 +135,31 @@ const scrapAnimePage = async (
 
   // get producers
   ayakashi.select("producers").where({
-    href: {
-      like: "/anime/producer/",
+    innerText: {
+      like: /^Producers: [\\s\\S]+$/,
     },
   });
-  const producers = (await ayakashi.extract("producers")) || [];
+  const rawProducers = await ayakashi.extractFirst("producers");
+  const producers = rawProducers
+    ? rawProducers
+        .replace("Producers:", "")
+        .split(", ")
+        .map((item) => item.trim())
+    : [];
+
+  // get licensors
+  ayakashi.select("licensors").where({
+    innerText: {
+      like: /^Licensors: [\\s\\S]+$/,
+    },
+  });
+  const rawLicensors = await ayakashi.extractFirst("licensors");
+  const licensors = rawLicensors
+    ? rawLicensors
+        .replace("Licensors:", "")
+        .split(", ")
+        .map((item) => item.trim())
+    : [];
 
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
@@ -160,6 +180,7 @@ const scrapAnimePage = async (
     airedEnd,
     duration,
     producers,
+    licensors,
   };
 };
 
