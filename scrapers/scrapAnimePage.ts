@@ -1,5 +1,6 @@
 import { createHash } from "crypto";
 import determineStatus from "../utils/determineStatus";
+import determineType from "../utils/determineType";
 
 const scrapAnimePage = async (
   ayakashi: import("@ayakashi/types").IAyakashiInstance,
@@ -21,8 +22,7 @@ const scrapAnimePage = async (
     .selectOne("titleContainer")
     .where({ class: { like: "title-name" } })
     .selectFirstChild("title");
-
-  const title = (await ayakashi.extractFirst("title")) || null;
+  const title = (await ayakashi.extractFirst("title")) || undefined;
 
   // get anime type
   ayakashi.select("type").where({
@@ -30,8 +30,9 @@ const scrapAnimePage = async (
       like: /^Type: [a-zA-Z]+$/,
     },
   });
-  const type =
-    (await ayakashi.extractFirst("type"))?.replace("Type: ", "") || null;
+  const type = determineType(
+    (await ayakashi.extractFirst("type"))?.replace("Type: ", "") || ""
+  );
 
   // get number of episodes
   ayakashi.select("episodes").where({
@@ -41,7 +42,7 @@ const scrapAnimePage = async (
   });
   const episodes =
     (await ayakashi.extractFirst("episodes"))?.replace("Episodes: ", "") ||
-    null;
+    undefined;
 
   // get status
   ayakashi.select("status").where({
@@ -68,7 +69,8 @@ const scrapAnimePage = async (
       },
     ],
   });
-  const mainImage = await ayakashi.extractFirst("mainImage", "src");
+  const mainImage =
+    (await ayakashi.extractFirst("mainImage", "src")) || undefined;
 
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
