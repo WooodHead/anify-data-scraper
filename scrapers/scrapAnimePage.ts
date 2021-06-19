@@ -1,4 +1,5 @@
 import { createHash } from "crypto";
+import determineStatus from "../utils/determineStatus";
 
 const scrapAnimePage = async (
   ayakashi: import("@ayakashi/types").IAyakashiInstance,
@@ -41,11 +42,21 @@ const scrapAnimePage = async (
   const episodes =
     (await ayakashi.extractFirst("episodes"))?.replace("Episodes: ", "") || "";
 
+  // get status
+  ayakashi.select("status").where({
+    innerText: {
+      like: /^Status: [a-zA-Z ]+$/,
+    },
+  });
+  const status = determineStatus(
+    (await ayakashi.extractFirst("status"))?.replace("Status: ", "") || ""
+  );
+
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
   hash.update(title);
 
-  return { id: hash.digest("hex"), title, type, episodes };
+  return { id: hash.digest("hex"), title, type, episodes, status };
 };
 
 module.exports = scrapAnimePage;
