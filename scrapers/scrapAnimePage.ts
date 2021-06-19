@@ -24,6 +24,9 @@ const scrapAnimePage = async (
     .selectFirstChild("title");
   const title = (await ayakashi.extractFirst("title")) || undefined;
 
+  // this determines our primary key, so just throw an error if it doesn't exist!
+  if (!title) throw new Error("No title exists!");
+
   // get anime type
   ayakashi.select("type").where({
     innerText: {
@@ -80,7 +83,16 @@ const scrapAnimePage = async (
     },
   });
   const rating =
-    (await ayakashi.extractFirst("rating"))?.replace("Rating: ", "") || "";
+    (await ayakashi.extractFirst("rating"))?.replace("Rating: ", "") ||
+    undefined;
+
+  // get genres
+  ayakashi.select("genres").where({
+    href: {
+      like: "/anime/genre/",
+    },
+  });
+  const genres = (await ayakashi.extract("genres")) || undefined;
 
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
@@ -94,6 +106,7 @@ const scrapAnimePage = async (
     status,
     mainImage,
     rating,
+    genres,
   };
 };
 
