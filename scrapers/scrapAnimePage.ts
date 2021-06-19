@@ -217,6 +217,9 @@ const scrapAnimePage = async (
         .map((item) => item.trim())
     : [];
 
+  // get sources
+  const sources = [{ name: "MyAnimeList", url }];
+
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
   hash.update(title || "");
@@ -241,6 +244,7 @@ const scrapAnimePage = async (
     englishTitle,
     japaneseTitle,
     synonyms,
+    sources,
   };
 };
 
