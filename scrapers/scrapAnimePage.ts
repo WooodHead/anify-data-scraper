@@ -11,7 +11,7 @@ const scrapAnimePage = async (
   if (!url) throw new Error("No URL provided");
 
   // wait x ms between runs to prevent throttling (if enabled)
-  if (!params?.disableThrottling) await ayakashi.wait(5000);
+  if (!params?.disableThrottling) await ayakashi.wait(0);
 
   await ayakashi.goTo(url);
 
@@ -32,11 +32,20 @@ const scrapAnimePage = async (
   const type =
     (await ayakashi.extractFirst("type"))?.replace("Type: ", "") || "";
 
+  // get number of episodes
+  ayakashi.select("episodes").where({
+    innerText: {
+      like: /^Episodes: [0-9]+$/,
+    },
+  });
+  const episodes =
+    (await ayakashi.extractFirst("episodes"))?.replace("Episodes: ", "") || "";
+
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
   hash.update(title);
 
-  return { id: hash.digest("hex"), title, type };
+  return { id: hash.digest("hex"), title, type, episodes };
 };
 
 module.exports = scrapAnimePage;
