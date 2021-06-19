@@ -133,6 +133,14 @@ const scrapAnimePage = async (
     (await ayakashi.extractFirst("duration"))?.replace("Duration: ", "") ||
     undefined;
 
+  // get producers
+  ayakashi.select("producers").where({
+    href: {
+      like: "/anime/producer/",
+    },
+  });
+  const producers = (await ayakashi.extract("producers")) || [];
+
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
   hash.update(title || "");
@@ -151,6 +159,7 @@ const scrapAnimePage = async (
     airedStart,
     airedEnd,
     duration,
+    producers,
   };
 };
 
