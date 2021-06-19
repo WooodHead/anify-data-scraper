@@ -123,6 +123,16 @@ const scrapAnimePage = async (
     ? new Date(seperatedAired[1]).toISOString()
     : undefined;
 
+  // get duration
+  ayakashi.select("duration").where({
+    innerText: {
+      like: /^Duration: [\\s\\S]+$/,
+    },
+  });
+  const duration =
+    (await ayakashi.extractFirst("duration"))?.replace("Duration: ", "") ||
+    undefined;
+
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
   hash.update(title || "");
@@ -140,6 +150,7 @@ const scrapAnimePage = async (
     premieredYear,
     airedStart,
     airedEnd,
+    duration,
   };
 };
 
