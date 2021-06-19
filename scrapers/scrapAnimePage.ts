@@ -161,6 +161,30 @@ const scrapAnimePage = async (
         .map((item) => item.trim())
     : [];
 
+  // get studios
+  ayakashi.select("studios").where({
+    innerText: {
+      like: /^Studios: [\\s\\S]+$/,
+    },
+  });
+  const rawStudios = await ayakashi.extractFirst("studios");
+  const studios = rawStudios
+    ? rawStudios
+        .replace("Studios:", "")
+        .split(", ")
+        .map((item) => item.trim())
+    : [];
+
+  // get source
+  ayakashi.select("source").where({
+    innerText: {
+      like: /^Source: [\\s\\S]+$/,
+    },
+  });
+  const source =
+    (await ayakashi.extractFirst("source"))?.replace("Source: ", "") ||
+    undefined;
+
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
   hash.update(title || "");
@@ -181,6 +205,8 @@ const scrapAnimePage = async (
     duration,
     producers,
     licensors,
+    studios,
+    source,
   };
 };
 
