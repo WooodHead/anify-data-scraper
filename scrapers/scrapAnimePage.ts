@@ -92,7 +92,7 @@ const scrapAnimePage = async (
       like: "/anime/genre/",
     },
   });
-  const genres = (await ayakashi.extract("genres")) || undefined;
+  const genres = (await ayakashi.extract("genres")) || [];
 
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
