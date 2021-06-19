@@ -78,7 +78,6 @@ const scrapAnimePage = async (
   // get rating
   ayakashi.select("rating").where({
     innerText: {
-      // like: "Rating",
       like: /^Rating: [\\s\\S]+$/,
     },
   });
@@ -94,6 +93,36 @@ const scrapAnimePage = async (
   });
   const genres = (await ayakashi.extract("genres")) || [];
 
+  // get premiered season and year
+  ayakashi.select("premiered").where({
+    innerText: {
+      like: /^Premiered: [\\s\\S]+$/,
+    },
+  });
+  const premiered =
+    (await ayakashi.extractFirst("premiered"))?.replace("Premiered: ", "") ||
+    "";
+  const premieredSeason = premiered.match(/[a-zA-Z]+/)?.[0];
+  const premieredYear = premiered.match(/[0-9]+/)?.[0];
+
+  // get aired dates
+  ayakashi.select("aired").where({
+    innerText: {
+      like: /^Aired: [\\s\\S]+$/,
+    },
+  });
+  const rawAired = (await ayakashi.extractFirst("aired"))?.replace(
+    "Aired: ",
+    ""
+  );
+  const seperatedAired = rawAired?.split(" to ") || undefined;
+  const startAired = seperatedAired?.[0]
+    ? new Date(seperatedAired[0]).toISOString()
+    : undefined;
+  const endAired = seperatedAired?.[1]
+    ? new Date(seperatedAired[1]).toISOString()
+    : undefined;
+
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
   hash.update(title || "");
@@ -107,6 +136,10 @@ const scrapAnimePage = async (
     mainImage,
     rating,
     genres,
+    premieredSeason,
+    premieredYear,
+    startAired,
+    endAired,
   };
 };
 
