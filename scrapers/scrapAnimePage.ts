@@ -116,10 +116,10 @@ const scrapAnimePage = async (
     ""
   );
   const seperatedAired = rawAired?.split(" to ") || undefined;
-  const startAired = seperatedAired?.[0]
+  const airedStart = seperatedAired?.[0]
     ? new Date(seperatedAired[0]).toISOString()
     : undefined;
-  const endAired = seperatedAired?.[1]
+  const airedEnd = seperatedAired?.[1]
     ? new Date(seperatedAired[1]).toISOString()
     : undefined;
 
@@ -138,8 +138,8 @@ const scrapAnimePage = async (
     genres,
     premieredSeason,
     premieredYear,
-    startAired,
-    endAired,
+    airedStart,
+    airedEnd,
   };
 };
 
