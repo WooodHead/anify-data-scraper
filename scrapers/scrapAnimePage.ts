@@ -174,14 +174,16 @@ const scrapAnimePage = async (
     : [];
 
   // get source
-  ayakashi.select("source").where({
+  ayakashi.select("sourceMaterialType").where({
     innerText: {
       like: /^Source: [\\s\\S]+$/,
     },
   });
-  const source =
-    (await ayakashi.extractFirst("source"))?.replace("Source: ", "") ||
-    undefined;
+  const sourceMaterialType =
+    (await ayakashi.extractFirst("sourceMaterialType"))?.replace(
+      "Source: ",
+      ""
+    ) || undefined;
 
   // get englishTitle
   ayakashi.select("englishTitle").where({
@@ -240,7 +242,7 @@ const scrapAnimePage = async (
     producers,
     licensors,
     studios,
-    source,
+    sourceMaterialType,
     englishTitle,
     japaneseTitle,
     synonyms,
