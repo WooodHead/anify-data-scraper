@@ -52,11 +52,28 @@ const scrapAnimePage = async (
     (await ayakashi.extractFirst("status"))?.replace("Status: ", "") || ""
   );
 
+  // get main image
+  ayakashi.select("mainImage").where({
+    and: [
+      {
+        tagName: {
+          eq: "img",
+        },
+      },
+      {
+        src: {
+          like: "/anime/",
+        },
+      },
+    ],
+  });
+  const mainImage = await ayakashi.extractFirst("mainImage", "src");
+
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
   hash.update(title);
 
-  return { id: hash.digest("hex"), title, type, episodes, status };
+  return { id: hash.digest("hex"), title, type, episodes, status, mainImage };
 };
 
 module.exports = scrapAnimePage;
