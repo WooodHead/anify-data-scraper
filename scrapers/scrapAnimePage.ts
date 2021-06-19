@@ -16,6 +16,8 @@ const scrapAnimePage = async (
   if (!params?.disableThrottling)
     await ayakashi.wait(10000 + Math.floor(Math.random() * 5000));
 
+  console.log(`Scraping ${url}`);
+
   await ayakashi.goTo(url);
 
   // get anime title
@@ -115,12 +117,14 @@ const scrapAnimePage = async (
     ""
   );
   const seperatedAired = rawAired?.split(" to ") || undefined;
-  const airedStart = seperatedAired?.[0]
-    ? new Date(seperatedAired[0]).toISOString()
-    : undefined;
-  const airedEnd = seperatedAired?.[1]
-    ? new Date(seperatedAired[1]).toISOString()
-    : undefined;
+  const airedStart =
+    seperatedAired?.[0] && seperatedAired?.[0].length > 3
+      ? new Date(seperatedAired[0]).toISOString()
+      : undefined;
+  const airedEnd =
+    seperatedAired?.[1] && seperatedAired?.[1].length > 3
+      ? new Date(seperatedAired[1]).toISOString()
+      : undefined;
 
   // get duration
   ayakashi.select("duration").where({

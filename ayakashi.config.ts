@@ -29,7 +29,7 @@ const singleRun: import("@ayakashi/types").Config = {
       type: "scraper",
       module: "scrapAnimePage",
       params: {
-        url: "https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood",
+        url: "https://myanimelist.net/anime/21/One_Piece",
         disableThrottling: true,
       },
     },
@@ -41,4 +41,4 @@ const singleRun: import("@ayakashi/types").Config = {
 };
 
 // set the current config here
-module.exports = singleRun;
+module.exports = fullRun;
