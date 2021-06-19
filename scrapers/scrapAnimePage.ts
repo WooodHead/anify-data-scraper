@@ -93,17 +93,15 @@ const scrapAnimePage = async (
   });
   const genres = (await ayakashi.extract("genres")) || [];
 
-  // get premiered season and year
-  ayakashi.select("premiered").where({
+  // get season
+  ayakashi.select("season").where({
     innerText: {
       like: /^Premiered: [\\s\\S]+$/,
     },
   });
   const premiered =
-    (await ayakashi.extractFirst("premiered"))?.replace("Premiered: ", "") ||
-    "";
-  const premieredSeason = premiered.match(/[a-zA-Z]+/)?.[0];
-  const premieredYear = premiered.match(/[0-9]+/)?.[0];
+    (await ayakashi.extractFirst("season"))?.replace("Premiered: ", "") || "";
+  const season = premiered.match(/[a-zA-Z]+/)?.[0];
 
   // get aired dates
   ayakashi.select("aired").where({
@@ -232,8 +230,7 @@ const scrapAnimePage = async (
     mainImage,
     rating,
     genres,
-    premieredSeason,
-    premieredYear,
+    season,
     airedStart,
     airedEnd,
     duration,
