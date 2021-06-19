@@ -20,13 +20,23 @@ const scrapAnimePage = async (
     .selectOne("titleContainer")
     .where({ class: { like: "title-name" } })
     .selectFirstChild("title");
+
   const title = (await ayakashi.extractFirst("title")) || "";
+
+  // get anime type
+  ayakashi.select("type").where({
+    innerText: {
+      like: /^Type: [a-zA-Z]+$/,
+    },
+  });
+  const type =
+    (await ayakashi.extractFirst("type"))?.replace("Type: ", "") || "";
 
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
   hash.update(title);
 
-  return { id: hash.digest("hex"), title };
+  return { id: hash.digest("hex"), title, type };
 };
 
 module.exports = scrapAnimePage;
