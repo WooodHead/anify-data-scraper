@@ -13,7 +13,8 @@ const scrapAnimePage = async (
   if (!url) throw new Error("No URL provided");
 
   // wait x ms between runs to prevent throttling (if enabled)
-  if (!params?.disableThrottling) await ayakashi.wait(0);
+  if (!params?.disableThrottling)
+    await ayakashi.wait(10000 + Math.floor(Math.random() * 5000));
 
   await ayakashi.goTo(url);
 

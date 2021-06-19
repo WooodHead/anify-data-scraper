@@ -14,7 +14,7 @@ const fullRun: import("@ayakashi/types").Config = {
     },
     {
       type: "script",
-      module: "printToConsole",
+      module: "sendToLambda",
     },
   ],
 };
@@ -35,7 +35,7 @@ const singleRun: import("@ayakashi/types").Config = {
     },
     {
       type: "script",
-      module: "printToConsole",
+      module: "sendToLambda",
     },
   ],
 };

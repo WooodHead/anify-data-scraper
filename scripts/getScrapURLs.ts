@@ -1,9 +1,7 @@
 import xml2js from "xml2js";
 import got from "got";
 
-const getScrapURLs = async (
-  ayakashi: import("@ayakashi/types").IAyakashiInstance
-) => {
+const getScrapURLs = async () => {
   const xml = await got.get("https://myanimelist.net/sitemap/anime-000.xml");
 
   // convert xml to json
