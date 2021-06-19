@@ -185,6 +185,40 @@ const scrapAnimePage = async (
     (await ayakashi.extractFirst("source"))?.replace("Source: ", "") ||
     undefined;
 
+  // get englishTitle
+  ayakashi.select("englishTitle").where({
+    innerText: {
+      like: /^English: [\\s\\S]+$/,
+    },
+  });
+  const englishTitle =
+    (await ayakashi.extractFirst("englishTitle"))?.replace("English: ", "") ||
+    undefined;
+
+  // get japaneseTitle
+  ayakashi.select("japaneseTitle").where({
+    innerText: {
+      like: /^Japanese: [\\s\\S]+$/,
+    },
+  });
+  const japaneseTitle =
+    (await ayakashi.extractFirst("japaneseTitle"))?.replace("Japanese: ", "") ||
+    undefined;
+
+  // get synonyms
+  ayakashi.select("synonyms").where({
+    innerText: {
+      like: /^Synonyms: [\\s\\S]+$/,
+    },
+  });
+  const rawSynonyms = await ayakashi.extractFirst("synonyms");
+  const synonyms = rawSynonyms
+    ? rawSynonyms
+        .replace("Synonyms:", "")
+        .split(", ")
+        .map((item) => item.trim())
+    : [];
+
   // generate a unique ID using the hash of the title
   const hash = createHash("sha1");
   hash.update(title || "");
@@ -207,6 +241,9 @@ const scrapAnimePage = async (
     licensors,
     studios,
     source,
+    englishTitle,
+    japaneseTitle,
+    synonyms,
   };
 };
 
