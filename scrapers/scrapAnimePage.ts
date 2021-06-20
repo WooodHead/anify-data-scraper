@@ -26,6 +26,15 @@ const scrapAnimePage = async (
 
   await ayakashi.goTo(url);
 
+  // check if 404 page
+  const noPageFound = ayakashi
+    .select("noPageFound")
+    .where({ src: { like: "/error/404" } });
+  if (await noPageFound.hasMatches()) {
+    console.log(`🔴 [ERROR] - Page does not exist for ${url}`);
+    return null;
+  }
+
   // get anime title
   ayakashi
     .selectOne("titleContainer")

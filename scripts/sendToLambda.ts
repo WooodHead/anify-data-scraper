@@ -3,6 +3,12 @@ import { Lambda } from "@aws-sdk/client-lambda";
 require("dotenv").config();
 
 const sendToLambda = async (input: any) => {
+  // if no input (404), just return
+  if (!input) {
+    console.log(`🔴 [ERROR] - No Lambda input provided, skipping item...`);
+    return;
+  }
+
   // check for required variables
   if (!process.env.AWS_ACCESS_KEY)
     throw new Error("AWS_ACCESS_KEY not provided");
@@ -10,6 +16,10 @@ const sendToLambda = async (input: any) => {
     throw new Error("AWS_SECRET_ACCESS_KEY not provided");
   if (!process.env.LAMBDA_FUNCTION_NAME)
     throw new Error("LAMBDA_FUNCTION_NAME not provided");
+
+  console.log(
+    `🟡 [IN PROGRESS] - Sending input to Lambda: ${JSON.stringify(input)}`
+  );
 
   // send to input to Lambda
   const client = new Lambda({
