@@ -1,4 +1,3 @@
-import { createHash } from "crypto";
 import determineStatus from "../utils/determineStatus";
 import determineType from "../utils/determineType";
 
@@ -146,7 +145,9 @@ const scrapAnimePage = async (
   );
   const seperatedAired = rawAired?.split(" to ") || undefined;
   const airedStart =
-    seperatedAired?.[0] && seperatedAired?.[0] !== 'Not available' && seperatedAired?.[0].length > 3
+    seperatedAired?.[0] &&
+    seperatedAired?.[0] !== "Not available" &&
+    seperatedAired?.[0].length > 3
       ? new Date(seperatedAired[0]).toISOString()
       : undefined;
   const airedEnd =
@@ -255,12 +256,7 @@ const scrapAnimePage = async (
   // get sources
   const sources = [{ name: "MyAnimeList", url }];
 
-  // generate a unique ID using the hash of the title
-  const hash = createHash("sha1");
-  hash.update(title || "");
-
   return {
-    id: hash.digest("hex"),
     title,
     type,
     episodes,

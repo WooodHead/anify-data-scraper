@@ -3,9 +3,9 @@ import { Lambda } from "@aws-sdk/client-lambda";
 require("dotenv").config();
 
 const sendToLambda = async (input: any) => {
-  // if no input (404), just return
-  if (!input.id) {
-    console.log(`🔵 [SKIPPED] - No Lambda input provided, skipping item...`);
+  // if no title (404), just return
+  if (!input.title) {
+    console.log(`🔵 [SKIPPED] - No title provided, skipping item...`);
     return;
   }
 
@@ -17,9 +17,7 @@ const sendToLambda = async (input: any) => {
   if (!process.env.LAMBDA_FUNCTION_NAME)
     throw new Error("LAMBDA_FUNCTION_NAME not provided");
 
-  console.log(
-    `🟡 [IN PROGRESS] - Sending input to Lambda: ${JSON.stringify(input)}`
-  );
+  console.log(`🟡 [IN PROGRESS] - Sending "${input.title}" to Lambda...`);
 
   // send to input to Lambda
   const client = new Lambda({
@@ -34,7 +32,7 @@ const sendToLambda = async (input: any) => {
     Payload: new TextEncoder().encode(JSON.stringify(input)),
   });
 
-  console.log(`🟢 [SUCCESS] - Sent ${input.id} to Lambda`);
+  console.log(`🟢 [SUCCESS] - Sent "${input.title}" to Lambda`);
 
   return response;
 };
