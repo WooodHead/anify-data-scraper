@@ -5,24 +5,31 @@ import determineType from "../utils/determineType";
 const scrapAnimePage = async (
   ayakashi: import("@ayakashi/types").IAyakashiInstance,
   input?: { url: string; index: number; total: number },
-  params?: { url?: string; disableThrottling?: boolean }
+  params?: { url?: string }
 ) => {
+  // seperator between runs
+  console.log("\n_____________________________________________________\n");
+
   // use the params.url override if exists, otherwise use the input url
   const url = params?.url || input?.url;
 
   if (!url) throw new Error("No URL provided");
 
-  // wait x ms between runs to prevent throttling (if enabled)
-  if (!params?.disableThrottling) {
-    console.log(`🟡 [IN PROGRESS] - Waiting to prevent throttle...`);
+  // if full run
+  if (!params?.url && input) {
+    // wait x ms between runs to prevent throttling
+    console.log(
+      `🟣 [IDLE] - (${input.index + 1}/${
+        input.total
+      }) - Waiting to prevent throttle...`
+    );
     await ayakashi.wait(10000 + Math.floor(Math.random() * 5000));
-  }
 
-  // give status updates for full runs
-  if (!params?.url && input)
+    // give status update
     console.log(
       `🟡 [IN PROGRESS] - (${input.index + 1}/${input.total}) - Scraping ${url}`
     );
+  }
 
   await ayakashi.goTo(url);
 
@@ -45,7 +52,7 @@ const scrapAnimePage = async (
 
   // no hentai for now
   if (genres.includes("Hentai")) {
-    console.log(`🟡 [IN PROGRESS] - Skipping hentai...`);
+    console.log(`🔵 [SKIPPED] - Hentai detected, skipping item...`);
     return null;
   }
 

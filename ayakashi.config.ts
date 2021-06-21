@@ -39,7 +39,6 @@ const singleRun: import("@ayakashi/types").Config = {
       module: "scrapAnimePage",
       params: {
         url: "https://myanimelist.net/anime/21/One_Piece",
-        disableThrottling: true,
       },
     },
     {
