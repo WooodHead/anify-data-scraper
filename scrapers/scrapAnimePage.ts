@@ -35,6 +35,20 @@ const scrapAnimePage = async (
     return null;
   }
 
+  // get genres
+  ayakashi.select("genres").where({
+    href: {
+      like: "/anime/genre/",
+    },
+  });
+  const genres = (await ayakashi.extract("genres")) || [];
+
+  // no hentai for now
+  if (genres.includes("Hentai")) {
+    console.log(`🟡 [IN PROGRESS] - Skipping hentai...`);
+    return null;
+  }
+
   // get anime title
   ayakashi
     .selectOne("titleContainer")
@@ -102,14 +116,6 @@ const scrapAnimePage = async (
   const rating =
     (await ayakashi.extractFirst("rating"))?.replace("Rating: ", "") ||
     undefined;
-
-  // get genres
-  ayakashi.select("genres").where({
-    href: {
-      like: "/anime/genre/",
-    },
-  });
-  const genres = (await ayakashi.extract("genres")) || [];
 
   // get season
   ayakashi.select("season").where({

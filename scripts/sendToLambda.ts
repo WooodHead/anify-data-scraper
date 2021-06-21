@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const sendToLambda = async (input: any) => {
   // if no input (404), just return
-  if (!input) {
+  if (!input.id) {
     console.log(`🔴 [ERROR] - No Lambda input provided, skipping item...`);
     return;
   }
