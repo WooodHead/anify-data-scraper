@@ -146,7 +146,7 @@ const scrapAnimePage = async (
   );
   const seperatedAired = rawAired?.split(" to ") || undefined;
   const airedStart =
-    seperatedAired?.[0] && seperatedAired?.[0].length > 3
+    seperatedAired?.[0] && seperatedAired?.[0] !== 'Not available' && seperatedAired?.[0].length > 3
       ? new Date(seperatedAired[0]).toISOString()
       : undefined;
   const airedEnd =
