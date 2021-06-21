@@ -7,14 +7,23 @@ const fullRun: import("@ayakashi/types").Config = {
     {
       type: "script",
       module: "getScrapURLs",
+      config: {
+        retries: 2,
+      },
     },
     {
       type: "scraper",
       module: "scrapAnimePage",
+      config: {
+        retries: 2,
+      },
     },
     {
       type: "script",
       module: "sendToLambda",
+      config: {
+        retries: 2,
+      },
     },
   ],
 };
