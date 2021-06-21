@@ -16,6 +16,7 @@ const fullRun: import("@ayakashi/types").Config = {
       module: "scrapAnimePage",
       config: {
         retries: 2,
+        pipeConsole: false,
       },
     },
     {
@@ -39,6 +40,9 @@ const singleRun: import("@ayakashi/types").Config = {
       module: "scrapAnimePage",
       params: {
         url: "https://myanimelist.net/anime/21/One_Piece",
+      },
+      config: {
+        pipeConsole: false,
       },
     },
     {
