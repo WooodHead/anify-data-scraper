@@ -65,6 +65,12 @@ const scrapAnimePage = async (
   // this determines our primary key, so just throw an error if it doesn't exist!
   if (!title) throw new Error("No title exists!");
 
+  // get description
+  ayakashi.selectOne("description").where({ itemprop: { eq: "description" } });
+  const description =
+    // extract innerText instead so we can get the line breaks
+    (await ayakashi.extractFirst("description", "innerText")) || undefined;
+
   // get anime type
   ayakashi.select("type").where({
     innerText: {
@@ -258,6 +264,7 @@ const scrapAnimePage = async (
 
   return {
     title,
+    description,
     type,
     episodes,
     status,

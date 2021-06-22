@@ -47,7 +47,7 @@ const singleRun: import("@ayakashi/types").Config = {
     },
     {
       type: "script",
-      module: "sendToLambda",
+      module: "printToConsole",
     },
   ],
 };
