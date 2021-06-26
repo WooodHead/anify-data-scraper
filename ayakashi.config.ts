@@ -15,7 +15,7 @@ const fullRun: import("@ayakashi/types").Config = {
       type: "scraper",
       module: "scrapAnimePage",
       config: {
-        retries: 2,
+        retries: 15,
         pipeConsole: false,
       },
     },
