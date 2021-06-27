@@ -178,12 +178,13 @@ const scrapAnimePage = async (
     },
   });
   const rawProducers = await ayakashi.extractFirst("producers");
-  const producers = rawProducers
+  const splitProducers = rawProducers
     ? rawProducers
         .replace("Producers:", "")
         .split(", ")
         .map((item) => item.trim())
     : [];
+  const producers = splitProducers[0] !== "None found" ? splitProducers : [];
 
   // get licensors
   ayakashi.select("licensors").where({
@@ -192,12 +193,13 @@ const scrapAnimePage = async (
     },
   });
   const rawLicensors = await ayakashi.extractFirst("licensors");
-  const licensors = rawLicensors
+  const splitLicensors = rawLicensors
     ? rawLicensors
         .replace("Licensors:", "")
         .split(", ")
         .map((item) => item.trim())
     : [];
+  const licensors = splitLicensors[0] !== "None found" ? splitLicensors : [];
 
   // get studios
   ayakashi.select("studios").where({
@@ -206,12 +208,13 @@ const scrapAnimePage = async (
     },
   });
   const rawStudios = await ayakashi.extractFirst("studios");
-  const studios = rawStudios
+  const splitStudios = rawStudios
     ? rawStudios
         .replace("Studios:", "")
         .split(", ")
         .map((item) => item.trim())
     : [];
+  const studios = splitStudios[0] !== "None found" ? splitStudios : [];
 
   // get source
   ayakashi.select("sourceMaterialType").where({
