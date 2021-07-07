@@ -265,6 +265,12 @@ const scrapAnimePage = async (
   // get sources
   const sources = [{ name: "MyAnimeList", url }];
 
+  // get score
+  ayakashi.selectOne("score").where({ itemprop: { eq: "ratingValue" } });
+  const score =
+    // extract innerText instead so we can get the line breaks
+    Number(await ayakashi.extractFirst("score", "innerText")) || undefined;
+
   return {
     title,
     description,
@@ -286,6 +292,7 @@ const scrapAnimePage = async (
     japaneseTitle,
     synonyms,
     sources,
+    score,
   };
 };
 
