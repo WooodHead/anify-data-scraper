@@ -1,3 +1,3 @@
-# mal-scraper
+# anify-data-scraper
 
-MyAnimeList scraper powered by [ayakashi.io](https://ayakashi.io/)
+Scrap common website for anime data powered by [ayakashi.io](https://ayakashi.io/)
