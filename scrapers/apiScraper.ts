@@ -7,16 +7,8 @@ const apiScraper = async (
   ayakashi: import("@ayakashi/types").IAyakashiInstance,
   input: { id: number; index: number; total: number }
 ) => {
-  if (input) {
-    console.log(
-      `🟣 [IDLE] - (${input.index + 1}/${
-        input.total
-      }) - Waiting to prevent throttle...`
-    );
-
-    // give status update
-    console.log(`🟡 [IN PROGRESS] - (${input.index + 1}/${input.total})`);
-  }
+  // give status update
+  console.log(`🟡 [IN PROGRESS] - (${input.index + 1}/${input.total})`);
 
   const malAnime = await JikanTS.Anime.byId(input.id);
   if (!malAnime) {
