@@ -10,7 +10,7 @@ const getScrapIds = async () => {
   });
 
   console.log(
-    "🟢 [SUCCESS] - Ids generated - Number of ids to scrap:",
+    "🟢 [SUCCESS] - ID's generated - Number of ID's to scrap:",
     ids.length
   );
 

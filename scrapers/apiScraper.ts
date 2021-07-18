@@ -20,7 +20,9 @@ const apiScraper = async (
 
   const malAnime = await JikanTS.Anime.byId(input.id);
   if (!malAnime) {
-    console.log(`no Anime for Id ${input?.id}`);
+    console.log(
+      `🔵 [SKIPPED] - No anime found with ID ${input?.id}, skipping item...`
+    );
     return null;
   }
   const anime = {
