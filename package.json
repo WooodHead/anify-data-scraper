@@ -18,7 +18,6 @@
   "homepage": "https://github.com/anify-app/mal-scraper#readme",
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.18.0",
-    "@hapi/boom": "^9.1.3",
     "ayakashi": "^1.0.0-beta7.2",
     "dotenv": "^10.0.0",
     "got": "^11.8.2",

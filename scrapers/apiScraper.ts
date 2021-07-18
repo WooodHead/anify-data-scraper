@@ -1,5 +1,4 @@
 import JikanTS from "jikants";
-import { notFound } from "@hapi/boom";
 import cleanMalArrayFields from "../utils/cleanMalArrayFields";
 import determineStatus from "../utils/determineStatus";
 import determineType from "../utils/determineType";
@@ -16,17 +15,16 @@ const apiScraper = async (
         input.total
       }) - Waiting to prevent throttle...`
     );
-    await ayakashi.wait(10000 + Math.floor(Math.random() * 5000));
+    // await ayakashi.wait(10000 + Math.floor(Math.random() * 5000));
 
     // give status update
-    console.log(
-      `🟡 [IN PROGRESS] - (${input.index + 1}/${input.total}) - Scraping ${url}`
-    );
+    console.log(`🟡 [IN PROGRESS] - (${input.index + 1}/${input.total})`);
   }
 
   const malAnime = await JikanTS.Anime.byId(input.id);
   if (!malAnime) {
     console.log(`no Anime for Id ${input?.id}`);
+    return null;
   }
   const anime = {
     title: malAnime?.title,
@@ -40,7 +38,7 @@ const apiScraper = async (
     genres: cleanMalArrayFields(malAnime?.genres).map(
       ({ url, ...genre }) => genre.name
     ),
-    season: malAnime?.premiered.split(" ")[0],
+    season: malAnime?.premiered?.split(" ")[0],
     airedStart: malAnime?.aired
       ? new Date(malAnime?.aired?.from).toISOString()
       : null,
@@ -67,5 +65,3 @@ const apiScraper = async (
 };
 
 export default apiScraper;
-
-apiScraper().then((data) => console.log(data));
