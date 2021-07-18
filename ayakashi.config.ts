@@ -60,7 +60,7 @@ const fullRunApi: import("@ayakashi/types").Config = {
   waterfall: [
     {
       type: "script",
-      module: "getIds",
+      module: "getScrapIds",
       config: {
         retries: 2,
       },

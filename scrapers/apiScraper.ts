@@ -7,15 +7,12 @@ const apiScraper = async (
   ayakashi: import("@ayakashi/types").IAyakashiInstance,
   input: { id: number; index: number; total: number }
 ) => {
-  // if full run
   if (input) {
-    // wait x ms between runs to prevent throttling
     console.log(
       `🟣 [IDLE] - (${input.index + 1}/${
         input.total
       }) - Waiting to prevent throttle...`
     );
-    // await ayakashi.wait(10000 + Math.floor(Math.random() * 5000));
 
     // give status update
     console.log(`🟡 [IN PROGRESS] - (${input.index + 1}/${input.total})`);
@@ -35,9 +32,7 @@ const apiScraper = async (
     status: determineStatus(malAnime?.status || ""),
     mainImage: malAnime?.image_url,
     rating: malAnime?.rating,
-    genres: cleanMalArrayFields(malAnime?.genres).map(
-      ({ url, ...genre }) => genre.name
-    ),
+    genres: cleanMalArrayFields(malAnime?.genres),
     season: malAnime?.premiered?.split(" ")[0],
     airedStart: malAnime?.aired
       ? new Date(malAnime?.aired?.from).toISOString()
@@ -56,6 +51,7 @@ const apiScraper = async (
     sources: malAnime ? [{ name: "MyAnimeList", url: malAnime?.url }] : [],
     score: malAnime?.score,
   };
+  console.log(anime);
 
   if (anime.genres.includes("Hentai")) {
     console.log(`🔵 [SKIPPED] - Hentai detected, skipping item...`);

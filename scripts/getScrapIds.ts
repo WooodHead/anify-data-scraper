@@ -1,4 +1,4 @@
-const getScrapIdss = async () => {
+const getScrapIds = async () => {
   const arrayOf50kNums = Array.from(Array(50000)).map((_, idx) => idx + 1);
 
   const ids = arrayOf50kNums.map((entry, index) => {
@@ -17,4 +17,4 @@ const getScrapIdss = async () => {
   return ids;
 };
 
-module.exports = getScrapIdss;
+module.exports = getScrapIds;
