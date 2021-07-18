@@ -11,12 +11,14 @@ const apiScraper = async (
   console.log(`🟡 [IN PROGRESS] - (${input.index + 1}/${input.total})`);
 
   const malAnime = await JikanTS.Anime.byId(input.id);
+
   if (!malAnime) {
     console.log(
       `🔵 [SKIPPED] - No anime found with ID ${input?.id}, skipping item...`
     );
     return null;
   }
+
   const anime = {
     title: malAnime?.title,
     description: malAnime?.synopsis,
@@ -45,12 +47,12 @@ const apiScraper = async (
     sources: malAnime ? [{ name: "MyAnimeList", url: malAnime?.url }] : [],
     score: malAnime?.score,
   };
-  console.log(anime);
 
   if (anime.genres.includes("Hentai")) {
     console.log(`🔵 [SKIPPED] - Hentai detected, skipping item...`);
     return null;
   }
+
   return anime;
 };
 
