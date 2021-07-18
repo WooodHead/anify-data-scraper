@@ -1,5 +1,5 @@
 {
-  "name": "@pourover-labs/mal-scraper",
+  "name": "@anify-app/mal-scraper",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,19 +8,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Pourover-Labs/mal-scraper.git"
+    "url": "git+https://github.com/anify-app/mal-scraper.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Pourover-Labs/mal-scraper/issues"
+    "url": "https://github.com/anify-app/mal-scraper/issues"
   },
-  "homepage": "https://github.com/Pourover-Labs/mal-scraper#readme",
+  "homepage": "https://github.com/anify-app/mal-scraper#readme",
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.18.0",
     "ayakashi": "^1.0.0-beta7.2",
     "dotenv": "^10.0.0",
     "got": "^11.8.2",
+    "install": "^0.13.0",
+    "jikants": "^1.2.13",
+    "npm": "^7.20.0",
     "typescript": "^4.3.3",
     "xml2js": "^0.4.23"
   },

@@ -1,7 +1,7 @@
 import determineStatus from "../utils/determineStatus";
 import determineType from "../utils/determineType";
 
-const scrapAnimePage = async (
+const webScraper = async (
   ayakashi: import("@ayakashi/types").IAyakashiInstance,
   input?: { url: string; index: number; total: number },
   params?: { url?: string }
@@ -296,4 +296,4 @@ const scrapAnimePage = async (
   };
 };
 
-module.exports = scrapAnimePage;
+module.exports = webScraper;
