@@ -2,6 +2,8 @@ import JikanTS from "jikants";
 import cleanMalArrayFields from "../utils/cleanMalArrayFields";
 import determineStatus from "../utils/determineStatus";
 import determineType from "../utils/determineType";
+import slugify from "slugify";
+import _ from "lodash";
 
 const apiScraper = async (
   ayakashi: import("@ayakashi/types").IAyakashiInstance,
@@ -21,6 +23,14 @@ const apiScraper = async (
 
   const anime = {
     title: malAnime?.title,
+    relations: _.map(malAnime?.related, (value, key) => {
+      // create queryable field for each relation
+      const relationType = slugify(key, { lower: true });
+      // use slugified version of the title
+      return {
+        [relationType]: value.map(({ name }) => slugify(name)),
+      };
+    }).filter((relation) => !relation["adaptation"]),
     description: malAnime?.synopsis,
     trailer: malAnime?.trailer_url,
     type: determineType(malAnime?.type || ""),
