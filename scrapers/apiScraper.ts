@@ -25,7 +25,7 @@ const apiScraper = async (
     title: malAnime?.title,
     relations: _.map(malAnime?.related, (value, key) => {
       // create queryable field for each relation
-      const relationType = slugify(key, { lower: true });
+      const relationType = _.camelCase(key);
       // use slugified version of the title
       return {
         [relationType]: value.map(({ name }) => slugify(name)),
