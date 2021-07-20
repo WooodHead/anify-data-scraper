@@ -27,7 +27,7 @@ const apiScraper = async (
       malAnime?.related,
       (result, value, key) => {
         const relationType = _.camelCase(key);
-        // use slugified version of the title
+        if (relationType === "adaptation") return {};
         return (result = {
           ...{ [relationType]: value.map(({ name }) => slugify(name)) },
           ...result,
