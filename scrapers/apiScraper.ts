@@ -23,14 +23,19 @@ const apiScraper = async (
 
   const anime = {
     title: malAnime?.title,
-    relations: _.map(malAnime?.related, (value, key) => {
-      // create queryable field for each relation
-      const relationType = _.camelCase(key);
-      // use slugified version of the title
-      return {
-        [relationType]: value.map(({ name }) => slugify(name)),
-      };
-    }).filter((relation) => !relation["adaptation"]),
+    relations: _.reduce(
+      malAnime?.related,
+      (result, value, key) => {
+        const relationType = _.camelCase(key);
+        // use slugified version of the title
+        return (result = {
+          ...{ [relationType]: value.map(({ name }) => slugify(name)) },
+          ...result,
+        });
+      },
+      {}
+    ),
+
     description: malAnime?.synopsis,
     trailer: malAnime?.trailer_url,
     type: determineType(malAnime?.type || ""),
